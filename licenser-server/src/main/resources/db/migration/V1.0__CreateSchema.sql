@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS `access_code`;
+
+CREATE TABLE IF NOT EXISTS `access_code` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `access_code` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`id`)
+)
