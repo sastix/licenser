@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/main">
+<head>
+    <title th:text="#{home.title} + ' | ' + #{accessCodes.title}"></title>
+</head>
+
+<th:block layout:fragment="main-content">
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 offset-lg-2">
+            <div class="card mt-5">
+                <div class="card-body">
+                    <h2 class="card-title text-center" th:text="#{accessCodes.title}"></h2>
+                    <table class="table table-striped table-responsive-xs" >
+                        <thead>
+                        <tr th:align="center">
+                            <th scope="col">Code</th>
+                            <th scope="col">Duration</th>
+                            <th scope="col">Level</th>
+                            <th scope="col">Activated</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="code : ${codes}" th:align="center">
+                            <td><a th:href="@{/licenser/frontend/admin/{accessCode}(accessCode=${code.getAccessCode()})}" th:text="${code.getAccessCode()}"></a></td>
+                            <td th:text="${code.getDuration()}"></td>
+                            <td th:text="${code.getLevel()}"></td>
+                            <td th:if="${code.getActivated()}" class="justify-content-center">
+                                <input type="checkbox" th:checked="true" th:readonly="true" th:disabled="true"/>
+                            </td>
+                            <td th:if="${!code.getActivated()}" class="justify-content-center">
+                                <input type="checkbox" th:checked="false" th:readonly="true" th:disabled="true"/>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</th:block>
+
+</html>

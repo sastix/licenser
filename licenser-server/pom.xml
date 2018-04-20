@@ -17,7 +17,6 @@
     <packaging>jar</packaging>
 
     <properties>
-
         <jackson.version>2.8.9</jackson.version>
     </properties>
 
@@ -51,11 +50,15 @@
         </dependency>
 
         <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>bootstrap</artifactId>
-            <version>3.3.7</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity4</artifactId>
+        </dependency>
+        
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>jquery</artifactId>
@@ -69,15 +72,21 @@
         </dependency>
 
         <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>bootstrap-fileinput</artifactId>
+            <version>4.4.8</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.webjars</groupId>
-            <artifactId>bootstrap-table</artifactId>
-            <version>1.9.1</version>
+            <artifactId>bootstrap-material-design</artifactId>
+            <version>4.1.1</version>
         </dependency>
 
         <dependency>
             <groupId>org.webjars.bower</groupId>
-            <artifactId>bootstrap-fileinput</artifactId>
-            <version>4.3.9</version>
+            <artifactId>popper.js</artifactId>
+            <version>1.14.1</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.webjars/jquery-validation -->
@@ -87,13 +96,53 @@
             <version>1.16.0</version>
         </dependency>
 
+        <!-- Joda -->
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.9.9</version>
+        </dependency>
 
+        <dependency>
+            <groupId>org.jadira.usertype</groupId>
+            <artifactId>usertype.jodatime</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jadira.usertype</groupId>
+            <artifactId>usertype.core</artifactId>
+            <version>6.0.1.GA</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-joda</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.jaxrs</groupId>
+            <artifactId>jackson-jaxrs-json-provider</artifactId>
+            <version>2.9.5</version>
+        </dependency>
 
         <!--https://mvnrepository.com/artifact/org.apache.camel/camel-jsonpath-->
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-jsonpath</artifactId>
             <version>2.19.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.7</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.7</version>
         </dependency>
 
         <dependency>
@@ -141,6 +190,37 @@
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>4.3.7.RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path</artifactId>
+            <version>2.4.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path-assert</artifactId>
+            <version>2.4.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>com.sastix.toolkit</groupId>
+            <artifactId>versioning</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

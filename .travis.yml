@@ -1,0 +1,12 @@
+language: java
+
+before_install:
+  - git clone https://github.com/sastix/toolkit.git
+  - cd toolkit
+  - mvn install -DskipTests
+  - cd ..
+
+script: "mvn cobertura:cobertura"
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)

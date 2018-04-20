@@ -1,8 +1,11 @@
 package com.sastix.licenser.server.exception;
 
+import com.sastix.licenser.commons.exception.AccessCodeNotFoundException;
+import com.sastix.licenser.commons.exception.InvalidAccessCodeProvidedException;
 import com.sastix.licenser.commons.domain.HttpStatusResponseType;
 import com.sastix.licenser.commons.exception.LicenserException;
 import com.sastix.licenser.commons.exception.InvalidDataTypeException;
+import com.sastix.licenser.commons.exception.MalformedExcelException;
 import com.sastix.toolkit.restclient.controller.RestExceptionHandlingController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,6 +52,27 @@ public class LicenserExceptionHandlingController extends RestExceptionHandlingCo
         return handleExceptionInternal(e,
                 super.getRestErrorDTO(e, HttpStatusResponseType.BAD_REQUEST.value(), req.getRequestURI()),
                 new HttpHeaders(), HttpStatus.UNSUPPORTED_MEDIA_TYPE, request);
+    }
+
+    @ExceptionHandler(value = {MalformedExcelException.class})
+    public ResponseEntity<Object> malformedExcel(WebRequest request, HttpServletRequest req, HttpServletResponse response, Exception e) throws IOException {
+        return handleExceptionInternal(e,
+                super.getRestErrorDTO(e, HttpStatusResponseType.BAD_REQUEST.value(), req.getRequestURI()),
+                new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler(value = {AccessCodeNotFoundException.class})
+    public ResponseEntity<Object> accessCodeNotFound(WebRequest request, HttpServletRequest req, HttpServletResponse response, Exception e) {
+        return handleExceptionInternal(e,
+                super.getRestErrorDTO(e, HttpStatusResponseType.NOT_FOUND.value(), req.getRequestURI()),
+                new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+    }
+
+    @ExceptionHandler(value = {InvalidAccessCodeProvidedException.class})
+    public ResponseEntity<Object> invalidAccessCodeProvided(WebRequest request, HttpServletRequest req, HttpServletResponse response, Exception e) {
+        return handleExceptionInternal(e,
+                super.getRestErrorDTO(e, HttpStatusResponseType.BAD_REQUEST.value(), req.getRequestURI()),
+                new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
 //    public ResponseEntity<Object>  mappingNotFoundForGivenTupleException(WebRequest request, HttpServletRequest req, HttpServletResponse response, Exception e) throws IOException {

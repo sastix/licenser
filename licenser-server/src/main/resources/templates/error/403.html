@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<title>Unauthorized - 403</title>
+
+<body>
+<div class="container">
+
+    <div class="starter-template">
+        <h1>403 - Access is denied</h1>
+        <div th:inline="text" sec:authentication="name">Hello name
+            you do not have permission to access this page.</div>
+    </div>
+
+</div>
+</body>
+
+</html>
+
+
+
+

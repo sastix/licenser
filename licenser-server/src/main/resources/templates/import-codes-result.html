@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/main">
+<head>
+    <title>Import File Result</title>
+</head>
+
+<th:block layout:fragment="main-content">
+
+    <div class="row">
+        <div th:if="${message}">
+            <h2 th:text="${message}"></h2>
+        </div>
+    </div>
+    <div>
+        <ul>
+            <li th:each="code : ${codes}">
+                <span>Code:</span>
+                <a href="#" class="font-weight-bold" th:text="${code.getAccessCode()}">access code</a>
+
+            </li>
+        </ul>
+    </div>
+</th:block>
+</html>

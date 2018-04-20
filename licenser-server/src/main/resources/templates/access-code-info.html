@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/main">
+<head>
+    <title th:text="#{home.title} + ' | ' + ${code.getAccessCode()}"></title>
+</head>
+
+<th:block layout:fragment="main-content">
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 offset-lg-2">
+            <div class="card mt-5">
+                <div class="card-body">
+                    <h2 class="card-title text-center" th:text="'Code: ' + ${code.getAccessCode()}"></h2>
+                    <form th:action="@{/licenser/frontend/admin/{code}(code=${code.getAccessCode()})}" method="post">
+                        <div class="form-group">
+                            <label for="accessCodeField">Access Code:</label>
+                            <input type="text" class="form-control" id="accessCodeField" th:value="${code.getAccessCode()}" th:disabled="true"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="levelField">Level:</label>
+                            <input type="text" class="form-control" id="levelField" th:value="${code.getLevel()}" th:disabled="true"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="durationField">Duration:</label>
+                            <input type="text" class="form-control" id="durationField" th:value="${code.getDuration()}" th:disabled="true"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="isActivatedField">Activated:</label>
+                            <input type="text" class="form-control" id="isActivatedField" th:value="${code.getActivated()}" th:disabled="true"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="activationDate">Activation Date:</label>
+                            <input type="text" class="form-control" id="activationDate" th:value="${code.getActivationDate()}" th:disabled="true"/>
+                        </div>
+                        <div th:if="${code.getUserId() != null}" class="form-group">
+                            <label for="userId">UserId:</label>
+                            <input type="text" class="form-control" id="userId" th:value="${code.getUserId()}" th:disabled="true"/>
+                        </div>
+                        <div th:if="${code.getUserId() == null}" class="form-group">
+                            <label for="isActivatedField">User:</label>
+                            <input type="text" class="form-control" id="UserId" name="UserId"/>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-raised">Activate</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</th:block>
+
+</html>

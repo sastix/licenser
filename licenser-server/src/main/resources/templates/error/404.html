@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <title th:text="#{home.title} + ' | ' + '404 Not Found'"></title>
+    <th:block th:include="layout/head :: init"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+</head>
+<body class="bg-404">
+<div class="container-fluid">
+    <div class="row align-items-center">
+        <div class="col"></div>
+        <div class="col-10 align-self-center">
+            <img th:src="@{/img/404.jpg}" class="img-fluid" style="height: auto" alt="Responsive image"> </img>
+        </div>
+        <div class="col"></div>
+
+    </div>
+</div>
+</body>
+
+</html>
+
+
+
+

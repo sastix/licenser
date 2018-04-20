@@ -2,8 +2,7 @@ package com.sastix.licenser.client.config;
 
 import com.sastix.licenser.client.LicenserClient;
 import com.sastix.licenser.client.impl.LicenserClientImpl;
-import com.sastix.licenser.commons.exception.LicenserException;
-import com.sastix.licenser.commons.exception.InvalidDataTypeException;
+import com.sastix.licenser.commons.exception.*;
 import com.sastix.licenser.commons.domain.LicenserContextUrl;
 import com.sastix.toolkit.restclient.config.RestTemplateConfiguration;
 import com.sastix.toolkit.restclient.exception.ToolkitBusinessException;
@@ -61,6 +60,9 @@ public class LicenserClientConfig implements LicenserContextUrl {
         SUPPORTED_EXCEPTIONS.put(ToolkitBusinessException.class.getName(), ToolkitBusinessException::new);
         SUPPORTED_EXCEPTIONS.put(InvalidDataTypeException.class.getName(), InvalidDataTypeException::new);
         SUPPORTED_EXCEPTIONS.put(LicenserException.class.getName(), LicenserException::new);
+        SUPPORTED_EXCEPTIONS.put(AccessCodeNotFoundException.class.getName(), AccessCodeNotFoundException::new);
+        SUPPORTED_EXCEPTIONS.put(InvalidAccessCodeProvidedException.class.getName(), InvalidAccessCodeProvidedException::new);
+        SUPPORTED_EXCEPTIONS.put(MalformedExcelException.class.getName(), MalformedExcelException::new);
     }
 
     @Bean(name = "licenserClient")

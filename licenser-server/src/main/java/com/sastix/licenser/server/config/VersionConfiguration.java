@@ -18,7 +18,7 @@ public class VersionConfiguration implements LicenserContextUrl {
 
     public static VersionDTO LICENSER_SERVER_VERSION = new VersionDTO()
             .withMinVersion(Double.valueOf(REST_API_V1_0))
-            .withMaxVersion(Double.valueOf(REST_API_V1_1))
+            .withMaxVersion(Double.valueOf(REST_API_V1_0))
             .withVersionContext(Double.valueOf(REST_API_V1_0),  "/"+BASE_URL+"/v" + REST_API_V1_0);
 
     @Bean
