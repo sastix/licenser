@@ -35,11 +35,11 @@ public class AccessCode {
     @Column(name = "duration")
     private Integer duration;
 
-    @Column(name = "is_activated")
-    private Boolean isActivated;
+    @Column(name = "is_activated", nullable = false)
+    private boolean isActivated;
 
-    @Column(name = "deleted")
-    private Boolean deleted;
+    @Column(name = "deleted", nullable = false)
+    private boolean deleted;
 
     @ManyToOne
     @JoinColumn(name = "tenant_id")

@@ -36,11 +36,11 @@
                         </div>
                         <div th:if="${code.getUserId() != null}" class="form-group">
                             <label for="userId">UserId:</label>
-                            <input type="text" class="form-control" id="userId" th:value="${code.getUserId()}" th:disabled="true"/>
+                            <input type="number" class="form-control" id="userId" th:value="${code.getUserId()}" th:disabled="true"/>
                         </div>
                         <div th:if="${code.getUserId() == null}" class="form-group">
                             <label for="isActivatedField">User:</label>
-                            <input type="text" class="form-control" id="UserId" name="UserId"/>
+                            <input type="number" class="form-control" id="UserId" name="UserId"/>
                         </div>
                         <button type="submit" class="btn btn-primary btn-raised">Activate</button>
                     </form>

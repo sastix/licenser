@@ -19,6 +19,7 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 
@@ -44,15 +45,13 @@ public class ExcelParserServiceTest {
         assertThat(firstRow.getLevel(), is(0));
         assertThat(firstRow.getPrice(), is(BigDecimal.valueOf(123.4)));
         assertThat(firstRow.getDuration(), is(1500));
-        assertThat(firstRow.getIsActivated(), is(false));
 
         // Assert that values matches with the first row of the sample file
         AccessCode secondRow = accessCodes.get(1);
         assertThat(secondRow.getAccessCode(), is("test2"));
-        assertThat(secondRow.getLevel(), is(1));
-        assertThat(secondRow.getPrice(), is(BigDecimal.valueOf(12312)));
+        assertThat(secondRow.getLevel(), is(0));
+        assertThat(secondRow.getPrice(), is(nullValue()));
         assertThat(secondRow.getDuration(), is(30));
-        assertThat(secondRow.getIsActivated(), is(true));
     }
 
     @Test
@@ -66,15 +65,13 @@ public class ExcelParserServiceTest {
         assertThat(firstRow.getLevel(), is(0));
         assertThat(firstRow.getPrice(), is(BigDecimal.valueOf(123.4)));
         assertThat(firstRow.getDuration(), is(1500));
-        assertThat(firstRow.getIsActivated(), is(false));
 
         // Assert that values matches with the first row of the sample file
         AccessCode secondRow = accessCodes.get(1);
         assertThat(secondRow.getAccessCode(), is("test2"));
-        assertThat(secondRow.getLevel(), is(1));
-        assertThat(secondRow.getPrice(), is(BigDecimal.valueOf(12312)));
+        assertThat(secondRow.getLevel(), is(0));
+        assertThat(secondRow.getPrice(), is(nullValue()));
         assertThat(secondRow.getDuration(), is(30));
-        assertThat(secondRow.getIsActivated(), is(true));
     }
 
     @Test
@@ -106,6 +103,14 @@ public class ExcelParserServiceTest {
         InputStream file = getClass().getClassLoader().getResourceAsStream("fixtures/invalid_duration.xls");
         expectedEx.expect(MalformedExcelException.class);
         expectedEx.expectMessage(containsString("not valid for column duration"));
+        parserService.parseFile(file);
+    }
+
+    @Test
+    public void missingRequiredHeader() throws MalformedExcelException {
+        InputStream file = getClass().getClassLoader().getResourceAsStream("fixtures/missing_required_header.xls");
+        expectedEx.expect(MalformedExcelException.class);
+        expectedEx.expectMessage(containsString("Required header not found:"));
         parserService.parseFile(file);
     }
 

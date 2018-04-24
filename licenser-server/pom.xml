@@ -100,19 +100,19 @@
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
-            <version>2.9.9</version>
+            <!--<version>2.9.9</version>-->
         </dependency>
 
-        <dependency>
-            <groupId>org.jadira.usertype</groupId>
-            <artifactId>usertype.jodatime</artifactId>
-            <version>2.0.1</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.jadira.usertype</groupId>-->
+            <!--<artifactId>usertype.jodatime</artifactId>-->
+            <!--<version>2.0.1</version>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>org.jadira.usertype</groupId>
             <artifactId>usertype.core</artifactId>
-            <version>6.0.1.GA</version>
+            <version>5.0.0.GA</version>
         </dependency>
 
         <dependency>

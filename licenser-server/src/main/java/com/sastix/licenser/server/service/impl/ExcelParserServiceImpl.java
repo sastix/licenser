@@ -11,30 +11,32 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Service()
 public class ExcelParserServiceImpl implements ExcelParserService {
 
     enum Column {
-        ACCESS_CODE("access_code"),
-        LEVEL("level"),
-        PRICE("price"),
-        DURATION("duration"),
-        ACTIVATED("is_activated");
+        ACCESS_CODE("access_code", true),
+        LEVEL("level", true),
+        PRICE("price", false),
+        DURATION("duration", true);
 
         private final String title;
+        private final Boolean required;
 
-        Column(String title) {
+        Column(String title, Boolean required) {
             this.title = title;
+            this.required = required;
         }
 
         public final String toString() {
             return title;
+        }
+
+        public final Boolean getRequired(){
+            return required;
         }
 
     }
@@ -77,23 +79,29 @@ public class ExcelParserServiceImpl implements ExcelParserService {
      */
     private Map<Integer, Column> getColumnPositions(Row header) throws MalformedExcelException {
         Map<Integer, Column> positions = new HashMap<>();
+        // Linkedlist so we can remove
+        List<Column> required = new LinkedList<>(Arrays.asList(Column.class.getEnumConstants()));
 
+        // Find Column indexes
         for (Cell cell : header) {
-            if (cell.getStringCellValue().equals(Column.ACCESS_CODE.toString())) {
+            Column currentColumn;
+            Integer currentPosition;
+            if (cell.getStringCellValue().toLowerCase().contains(Column.ACCESS_CODE.toString())) {
                 // Access code column
-                positions.put(cell.getColumnIndex(), Column.ACCESS_CODE);
-            } else if (cell.getStringCellValue().equals(Column.LEVEL.toString())) {
+                currentPosition = cell.getColumnIndex();
+                currentColumn = Column.ACCESS_CODE;
+            } else if (cell.getStringCellValue().toLowerCase().contains(Column.LEVEL.toString())) {
                 // Level column
-                positions.put(cell.getColumnIndex(), Column.LEVEL);
-            } else if (cell.getStringCellValue().equals(Column.PRICE.toString())) {
+                currentPosition = cell.getColumnIndex();
+                currentColumn = Column.LEVEL;
+            } else if (cell.getStringCellValue().toLowerCase().contains(Column.PRICE.toString())) {
                 // Price column
-                positions.put(cell.getColumnIndex(), Column.PRICE);
-            } else if (cell.getStringCellValue().equals(Column.DURATION.toString())) {
+                currentPosition = cell.getColumnIndex();
+                currentColumn = Column.PRICE;
+            } else if (cell.getStringCellValue().toLowerCase().contains(Column.DURATION.toString())) {
                 // Duration column
-                positions.put(cell.getColumnIndex(), Column.DURATION);
-            } else if (cell.getStringCellValue().equals(Column.ACTIVATED.toString())) {
-                // Activated column
-                positions.put(cell.getColumnIndex(), Column.ACTIVATED);
+                currentPosition = cell.getColumnIndex();
+                currentColumn = Column.DURATION;
             } else {
                 throw new MalformedExcelException(String.format(
                         "Malformed header at column %d. %s is unknown.",
@@ -101,6 +109,16 @@ public class ExcelParserServiceImpl implements ExcelParserService {
                         cell.getStringCellValue()
                 ));
             }
+            required.removeIf(x -> x.equals(currentColumn));
+            positions.put(currentPosition, currentColumn);
+        }
+
+        if (required.size() != 0) {
+            StringBuilder not_found = new StringBuilder();
+            for ( Column column : required){
+                not_found.append(column.toString()).append(" ");
+            }
+            throw new MalformedExcelException("Required header not found: " + not_found.toString());
         }
         return positions;
     }
@@ -120,6 +138,11 @@ public class ExcelParserServiceImpl implements ExcelParserService {
         for (Map.Entry<Integer, Column> entry : columnPositions.entrySet()) {
             Cell cell = row.getCell(entry.getKey());
 
+            // Skip if empty
+            if (cell == null){
+                continue;
+            }
+
             try {
                 switch (entry.getValue()) {
                     case ACCESS_CODE:
@@ -136,13 +159,6 @@ public class ExcelParserServiceImpl implements ExcelParserService {
                     case DURATION:
                         Integer duration = Integer.parseInt(getCellValue(cell));
                         accessCode.setDuration(duration);
-                        break;
-                    case ACTIVATED:
-                        if (cell == null || cell.getCellType() == Cell.CELL_TYPE_BLANK) {
-                            accessCode.setIsActivated(false);
-                        } else {
-                            accessCode.setIsActivated(true);
-                        }
                         break;
                 }
             } catch (IllegalStateException | NumberFormatException e) {

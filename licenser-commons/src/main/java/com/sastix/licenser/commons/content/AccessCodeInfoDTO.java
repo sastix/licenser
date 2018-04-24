@@ -22,9 +22,9 @@ public class AccessCodeInfoDTO {
     @NotEmpty
     private Integer duration;
 
-    DateTime activationDate;
+    private DateTime activationDate;
 
-    Long userId;
+    private Long userId;
 
     /**
      * Default Constructor.
