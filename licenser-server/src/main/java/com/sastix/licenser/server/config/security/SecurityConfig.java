@@ -6,15 +6,17 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.DefaultRedirectStrategy;
+import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
-import static com.sastix.licenser.commons.domain.LicenserContextUrl.BASE_URL;
-import static com.sastix.licenser.commons.domain.LicenserContextUrl.FRONTEND;
-import static com.sastix.licenser.commons.domain.LicenserContextUrl.REST_API_V1_0;
+import static com.sastix.licenser.commons.domain.LicenserContextUrl.*;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
     @Autowired
     private AccessDeniedHandler accessDeniedHandler;
@@ -25,9 +27,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         String baseUrl = "/" + BASE_URL + "/" + FRONTEND;
         http.csrf().disable()
                 .authorizeRequests()
-                    .antMatchers("/webjars/**", baseUrl + "/", "/static/**").permitAll()
+                    .antMatchers("/webjars/**", "/static/**").permitAll()
                     .antMatchers("/apiversion").permitAll()
                     .antMatchers( "/" + BASE_URL + "/v" + REST_API_V1_0 + "/**" ).permitAll()
+                    .antMatchers(baseUrl + "/").authenticated()
                     .antMatchers(baseUrl + "/admin/**").hasAnyRole("ADMIN")
                     .antMatchers(baseUrl + "/user/**").hasAnyRole("VIEWER")
                     .anyRequest().authenticated()
@@ -35,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                     .loginPage(baseUrl + "/login")
                     .permitAll()
-                    .defaultSuccessUrl(baseUrl + "/")
+                    .successHandler((httpServletRequest, httpServletResponse, authentication) -> redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, baseUrl + "/"))
                     .and()
                 .logout()
                     .permitAll()

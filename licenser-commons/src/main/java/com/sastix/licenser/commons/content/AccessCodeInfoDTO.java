@@ -26,6 +26,9 @@ public class AccessCodeInfoDTO {
 
     private Long userId;
 
+    @NotNull
+    private Integer tenantId;
+
     /**
      * Default Constructor.
      */
@@ -41,10 +44,12 @@ public class AccessCodeInfoDTO {
      */
     public AccessCodeInfoDTO(final String accessCode,
                              final Integer level,
-                             final Integer duration) {
+                             final Integer duration,
+                             final Integer tenantId) {
         this.accessCode = accessCode;
         this.level = level;
         this.duration = duration;
+        this.tenantId = tenantId;
     }
 
     /**
@@ -162,4 +167,8 @@ public class AccessCodeInfoDTO {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
+
+    public Integer getTenantId() { return tenantId; }
+
+    public void setTenantId(Integer tenantId) { this.tenantId = tenantId; }
 }

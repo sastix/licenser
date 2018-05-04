@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      - MYSQL_DATABASE=licenser
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+      - MYSQL_USER=licenser
+      - MYSQL_PASSWORD=licenser
+
+  licenser:
+    build: ./
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_NAME=licenser
+      - DB_USER=licenser
+      - DB_PASSWORD=licenser
+    restart: always
+    ports:
+      - "8585:8585"
+    links:
+      - db

@@ -76,7 +76,7 @@ public class ApiControllerTest {
     public void getAccessCodeInfoTest() throws Exception {
         reset(licenserService);
         when(licenserService.getAccessCodeInfo(any(String.class)))
-                .thenReturn(new AccessCodeInfoDTO("test", 0, 1500));
+                .thenReturn(new AccessCodeInfoDTO("test", 0, 1500, 1));
 
         MvcResult result = mockMvc.perform(
                 get("/" + BASE_URL + "/v" + REST_API_V1_0 + "/" + ACCESS_CODE + "/test")
@@ -96,7 +96,7 @@ public class ApiControllerTest {
     public void activateAccessCodeTest() throws Exception {
         reset(licenserService);
         when(licenserService.activateAccessCode(any(ActivateAccessCodeDTO.class)))
-                .thenReturn(new AccessCodeInfoDTO("test", 0, 1500));
+                .thenReturn(new AccessCodeInfoDTO("test", 0, 1500, 1));
 
         MvcResult result = mockMvc.perform(
                 post("/" + BASE_URL + "/v" + REST_API_V1_0 + "/" + ACTIVATE)
@@ -117,7 +117,7 @@ public class ApiControllerTest {
     public void getAllAccessCodesTest() throws Exception {
         reset(licenserService);
         List<AccessCodeInfoDTO> accessCodeInfoDTOList = new ArrayList<>();
-        accessCodeInfoDTOList.add(new AccessCodeInfoDTO("test", 0, 1500));
+        accessCodeInfoDTOList.add(new AccessCodeInfoDTO("test", 0, 1500, 1));
         when(licenserService.getAllAccessCodes())
                 .thenReturn(accessCodeInfoDTOList);
 
@@ -141,7 +141,7 @@ public class ApiControllerTest {
         // Mock service return
         reset(licenserService);
         List<AccessCodeInfoDTO> accessCodeInfoDTOList = new ArrayList<>();
-        accessCodeInfoDTOList.add(new AccessCodeInfoDTO("test", 0, 1500));
+        accessCodeInfoDTOList.add(new AccessCodeInfoDTO("test", 0, 1500, 1));
         when(licenserService.importFromExcel(any(ImportExcelDTO.class))).thenReturn(accessCodeInfoDTOList);
 
         ImportExcelDTO importExcelDTO = new ImportExcelDTO("test".getBytes(), 0);

@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Service()
@@ -79,8 +80,10 @@ public class ExcelParserServiceImpl implements ExcelParserService {
      */
     private Map<Integer, Column> getColumnPositions(Row header) throws MalformedExcelException {
         Map<Integer, Column> positions = new HashMap<>();
-        // Linkedlist so we can remove
-        List<Column> required = new LinkedList<>(Arrays.asList(Column.class.getEnumConstants()));
+
+        // Create a list of all required columns. LinkedList so we can remove objects
+        List<Column> required = Arrays.stream(Column.class.getEnumConstants())
+                .filter(Column::getRequired).collect(Collectors.toCollection(LinkedList::new));
 
         // Find Column indexes
         for (Cell cell : header) {

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.util.ArrayIterator;
 import com.sastix.licenser.commons.content.AccessCodeInfoDTO;
 import com.sastix.licenser.commons.content.ActivateAccessCodeDTO;
 import com.sastix.licenser.commons.content.ImportExcelDTO;
+import com.sastix.licenser.commons.content.TenantDTO;
 import com.sastix.licenser.commons.exception.AccessCodeNotFoundException;
 import com.sastix.licenser.commons.exception.InvalidAccessCodeProvidedException;
 import com.sastix.licenser.commons.exception.MalformedExcelException;
@@ -74,6 +75,7 @@ public class LicenserServiceTest {
 
         when(accessCodeRepository.getByAccessCode(code.getAccessCode())).thenReturn(code);
         when(tenantRepository.findOne(tenant.getId())).thenReturn(tenant);
+        when(tenantRepository.findAll()).thenReturn(new ArrayIterator<>(new Tenant[]{tenant}));
         when(accessCodeRepository.findAll()).thenReturn(new ArrayIterator<>(new AccessCode[]{code}));
     }
 
@@ -155,6 +157,13 @@ public class LicenserServiceTest {
         expectedEx.expectMessage(containsString("test"));
 
         licenserService.importFromExcel(new ImportExcelDTO("test".getBytes(), 0));
+    }
+
+    @Test
+    public void getAllTenantsTest(){
+        List<TenantDTO> tenantDTOS = licenserService.getAllTenants();
+        assertThat(tenantDTOS.size(), is(1));
+        assertThat(tenantDTOS.get(0).getName(), is("Sastix"));
     }
 
 }

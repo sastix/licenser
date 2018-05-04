@@ -4,8 +4,8 @@ public enum HttpStatusResponseType {
 
     SUCCESSFUL_OPERATION(200, "Licenser Successful operation"),
     BAD_REQUEST(400, "Licenser Bad Request"),
-    NOT_FOUND(404, "Licenser responded with not found.")
-    ;
+    NOT_FOUND(404, "Licenser responded with not found."),
+    INTERNAL_SERVER(500, "Internal server error.");
 
     private final int value;
     private final String reasonPhrase;

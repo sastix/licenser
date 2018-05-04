@@ -4,6 +4,7 @@ import com.sastix.licenser.client.LicenserClient;
 import com.sastix.licenser.commons.content.AccessCodeInfoDTO;
 import com.sastix.licenser.commons.content.ActivateAccessCodeDTO;
 import com.sastix.licenser.commons.content.ImportExcelDTO;
+import com.sastix.licenser.commons.content.TenantDTO;
 import com.sastix.licenser.commons.domain.LicenserContextUrl;
 import com.sastix.licenser.commons.exception.AccessCodeNotFoundException;
 import com.sastix.licenser.commons.exception.InvalidAccessCodeProvidedException;
@@ -59,5 +60,10 @@ public class LicenserClientImpl implements LicenserClient, LicenserContextUrl {
         String url = apiVersionClient.getApiUrl() + '/' + IMPORT_EXCEL;
         LOG.debug("/" + IMPORT_EXCEL + " call [post]: " + url);
         return Arrays.asList(retryRestTemplate.postForObject(url, importExcelDTO, AccessCodeInfoDTO[].class));
+    }
+
+    @Override
+    public List<TenantDTO> getAllTenants() {
+        return null;
     }
 }

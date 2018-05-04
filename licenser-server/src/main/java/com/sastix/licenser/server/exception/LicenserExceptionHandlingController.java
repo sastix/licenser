@@ -34,6 +34,17 @@ public class LicenserExceptionHandlingController extends RestExceptionHandlingCo
      * }
      */
 
+    @ExceptionHandler({Exception.class})
+    public void handleExceptions(HttpServletRequest request, HttpServletResponse response, Exception e) throws IOException {
+        LOG.error("Bad request: {} from {}, Exception: {} {}",
+                request.getRequestURI(),
+                request.getRemoteHost(),
+                e.getStackTrace()[0].toString(),
+                e.getLocalizedMessage());
+        response.sendError(HttpStatusResponseType.INTERNAL_SERVER.value(), e.getLocalizedMessage());
+
+    }
+
     @ExceptionHandler({LicenserException.class})
     public void handleBadRequests(HttpServletRequest request, HttpServletResponse response, Exception e) throws IOException {
         LOG.error("Bad request: {} from {}, Exception: {} {}",

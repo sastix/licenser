@@ -25,7 +25,7 @@ public class MAccessDeniedHandler implements AccessDeniedHandler {
                 = SecurityContextHolder.getContext().getAuthentication();
 
         if (auth != null) {
-            logger.info("User '" + auth.getName()
+            logger.info("User '" + auth.getName() + auth.getAuthorities()
                     + "' attempted to access the protected URL: "
                     + httpServletRequest.getRequestURI());
         }

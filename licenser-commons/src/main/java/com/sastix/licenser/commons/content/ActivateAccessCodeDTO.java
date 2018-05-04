@@ -11,7 +11,7 @@ public class ActivateAccessCodeDTO {
     private Long userId;
 
     public ActivateAccessCodeDTO() {
-
+    
     }
 
     public ActivateAccessCodeDTO(String accessCode, Long userId) {

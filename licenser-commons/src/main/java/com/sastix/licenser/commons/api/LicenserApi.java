@@ -4,6 +4,7 @@ package com.sastix.licenser.commons.api;
 import com.sastix.licenser.commons.content.AccessCodeInfoDTO;
 import com.sastix.licenser.commons.content.ActivateAccessCodeDTO;
 import com.sastix.licenser.commons.content.ImportExcelDTO;
+import com.sastix.licenser.commons.content.TenantDTO;
 import com.sastix.licenser.commons.exception.AccessCodeNotFoundException;
 import com.sastix.licenser.commons.exception.InvalidAccessCodeProvidedException;
 
@@ -18,4 +19,6 @@ public interface LicenserApi {
     List<AccessCodeInfoDTO> getAllAccessCodes();
 
     List<AccessCodeInfoDTO> importFromExcel(ImportExcelDTO importExcelDTO);
+
+    List<TenantDTO> getAllTenants();
 }

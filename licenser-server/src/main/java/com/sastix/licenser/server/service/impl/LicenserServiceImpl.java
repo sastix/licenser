@@ -3,6 +3,7 @@ package com.sastix.licenser.server.service.impl;
 import com.sastix.licenser.commons.content.AccessCodeInfoDTO;
 import com.sastix.licenser.commons.content.ActivateAccessCodeDTO;
 import com.sastix.licenser.commons.content.ImportExcelDTO;
+import com.sastix.licenser.commons.content.TenantDTO;
 import com.sastix.licenser.commons.exception.AccessCodeNotFoundException;
 import com.sastix.licenser.commons.exception.InvalidAccessCodeProvidedException;
 import com.sastix.licenser.server.model.AccessCode;
@@ -93,8 +94,15 @@ public class LicenserServiceImpl implements LicenserService, Conversions {
         }
 
         accessCodeRepository.save(accessCodeList);
-
-        // Fixme: Improve this
         return accessCodeInfoDTOS;
+    }
+
+    @Override
+    public List<TenantDTO> getAllTenants() {
+        List<TenantDTO> tenantDTOS = new ArrayList<>();
+        for (Tenant tenant : tenantRepository.findAll()) {
+            tenantDTOS.add(convertTenantToDTO.apply(tenant));
+        }
+        return tenantDTOS;
     }
 }

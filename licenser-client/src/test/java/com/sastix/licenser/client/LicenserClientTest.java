@@ -67,13 +67,13 @@ public class LicenserClientTest {
         when(apiVersionClient.getApiVersion()).thenReturn(TEST_VERSION);
         when(apiVersionClient.getApiUrl()).thenReturn(BASE_URL);
 
-        responseData = new AccessCodeInfoDTO("test", 0, 1500);
+        responseData = new AccessCodeInfoDTO("test", 0, 1500, 1);
 
     }
 
     @Test
     public void importExcelTest() throws JsonProcessingException {
-        AccessCodeInfoDTO[] responseData = new AccessCodeInfoDTO[]{new AccessCodeInfoDTO("test", 0, 1500)};
+        AccessCodeInfoDTO[] responseData = new AccessCodeInfoDTO[]{new AccessCodeInfoDTO("test", 0, 1500, 1)};
         String response = mapper.writeValueAsString(responseData);
 
         mockServer.expect(requestTo(BASE_URL + IMPORT_EXCEL))
@@ -117,7 +117,7 @@ public class LicenserClientTest {
 
     @Test
     public void getAllAccessCodesTest() throws JsonProcessingException {
-        AccessCodeInfoDTO[] responseData = new AccessCodeInfoDTO[]{new AccessCodeInfoDTO("test", 0, 1500)};
+        AccessCodeInfoDTO[] responseData = new AccessCodeInfoDTO[]{new AccessCodeInfoDTO("test", 0, 1500, 1)};
         String response = mapper.writeValueAsString(responseData);
 
         mockServer.expect(requestTo(BASE_URL + ACCESS_CODE))

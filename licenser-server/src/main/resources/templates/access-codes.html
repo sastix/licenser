@@ -13,7 +13,18 @@
             <div class="card mt-5">
                 <div class="card-body">
                     <h2 class="card-title text-center" th:text="#{accessCodes.title}"></h2>
-                    <table class="table table-striped table-responsive-xs" >
+                    <form method="GET" th:action="@{/licenser/frontend/admin/codes}">
+                        <div class="form-group">
+                            <label for="tenantId" class="bmd-label-floating">Select tenant:</label>
+                            <select class="form-control" id="tenantId" name="tenantId" onchange="this.form.submit()">
+                                <option th:each="tenant : ${tenants}"
+                                        th:value="${tenant.getId()}"
+                                        th:text="${tenant.getName()}"
+                                        th:selected="${tenant.getId()} == ${param.tenantId[0]}"></option>
+                            </select>
+                        </div>
+                    </form>
+                    <table class="table table-striped table-responsive-xs">
                         <thead>
                         <tr th:align="center">
                             <th scope="col">Code</th>
@@ -24,7 +35,9 @@
                         </thead>
                         <tbody>
                         <tr th:each="code : ${codes}" th:align="center">
-                            <td><a th:href="@{/licenser/frontend/admin/{accessCode}(accessCode=${code.getAccessCode()})}" th:text="${code.getAccessCode()}"></a></td>
+                            <td>
+                                <a th:href="@{/licenser/frontend/admin/{accessCode}(accessCode=${code.getAccessCode()})}"
+                                   th:text="${code.getAccessCode()}"></a></td>
                             <td th:text="${code.getDuration()}"></td>
                             <td th:text="${code.getLevel()}"></td>
                             <td th:if="${code.getActivated()}" class="justify-content-center">
@@ -33,6 +46,7 @@
                             <td th:if="${!code.getActivated()}" class="justify-content-center">
                                 <input type="checkbox" th:checked="false" th:readonly="true" th:disabled="true"/>
                             </td>
+                            <td th:text="${code.getTenantId()}"></td>
                         </tr>
                         </tbody>
                     </table>

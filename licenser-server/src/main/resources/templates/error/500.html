@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{home.title} + ' | ' + '500 Server Error'"></title>
+    <th:block th:include="layout/head :: init"/>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <h1>Internal Server Error</h1>
+                <h2>Please contact your administrator!</h2>
+                <a th:href="@{/licenser/frontend/}" class="btn btn-primary btn-raised">Go back home</a>
+            </div>
+        </div>
+    </div>
+
+<th:block th:include="layout/scripts :: init"/>
+
+</body>
+
+</html>
+
+
+
+
